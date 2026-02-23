@@ -16,6 +16,9 @@ const mainContainer = document.querySelector('main');
 
 const filterSection = document.getElementById('filtered-section');
 
+// GET JOBCOUNT. right side er job count
+const jobCount = document.getElementById("jobCount");
+
 
 // filter buttons. For toggling
 const allFilterBtn = document.getElementById("all-filter-btn");
@@ -31,6 +34,8 @@ function calculateCount() {
     interviewCount.innerText = interviewList.length;
 
     rejectedCount.innerText = rejectedList.length;
+
+    rightSideJobCount();
 }
 
 calculateCount();
@@ -76,6 +81,10 @@ function toggleStyle(id) {
         filterSection.classList.remove('hidden');
         renderRejected();
     }
+
+
+    // currentStatus function e dhuklo. condition meet koriyene specific innerText show korbe
+    rightSideJobCount();
 }
 
 
@@ -171,6 +180,53 @@ mainContainer.addEventListener('click', function (event) {
 
         calculateCount();
     }
+
+    // else if (event.target.classList.contains('btn-delete')){
+    else if (event.target.closest('.btn-delete')) {
+        // const parentNode = event.target.parentNode.parentNode;
+        const parentNode = event.target.closest('.card');
+        const companyName = parentNode.querySelector('.company-name').innerText;
+        const position = parentNode.querySelector('.position').innerText;
+        const location = parentNode.querySelector('.location').innerText;
+        const type = parentNode.querySelector('.type').innerText;
+        const salary = parentNode.querySelector('.salary').innerText;
+        const status = parentNode.querySelector('.status').innerText;
+        const notes = parentNode.querySelector('.notes').innerText;
+
+        parentNode.querySelector('.status').innerText = "NOT APPLIED";
+
+        // console.log(companyName, position, location, type, salary, status, notes);
+
+        const cardInfo = {
+            companyName,
+            position,
+            location,
+            type,
+            salary,
+            status: 'NOT APPLIED',
+            notes
+        };
+        // console.log(cardInfo);
+
+        // interview or rejected list e thakle filter out kore baki gula thaklo
+        interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName);
+
+        rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName);
+
+        // filter section theke card ta remove hoilo
+        parentNode.remove();
+
+        // jei filter section e thakbe sheita re render korlo
+        if (currentStatus === 'interview-filter-btn') {
+            renderInterview();
+        }
+        else if (currentStatus === 'rejected-filter-btn') {
+            renderRejected();
+        }
+
+
+        calculateCount();
+    }
 })
 
 
@@ -178,7 +234,18 @@ mainContainer.addEventListener('click', function (event) {
 function renderInterview() {
     filterSection.innerHTML = '';
 
-    
+    // jodi list khali thake > length 0. taile filter section e no job thakbe
+    if (interviewList.length === 0) {
+        filterSection.innerHTML = `
+        <div class="border border-gray-200 rounded-lg px-10 py-15 space-y-5 flex flex-col justify-center items-center">
+            <img src="assets/blank_page.png" alt="">
+            <div class="text-center">
+                <h1 class="text-[#002C5C] text-2xl font-semibold">No jobs available</h1>
+            <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    `;
+    }
 
     // jodi khali na thake, taile list theke ekta ekta card dhorbe. notun card banai sheitare filter section e append korbe
     for (let interview of interviewList) {
@@ -231,7 +298,17 @@ function renderInterview() {
 function renderRejected() {
     filterSection.innerHTML = '';
 
-    
+    if (rejectedList.length === 0) {
+        filterSection.innerHTML = `
+        <div class="border border-gray-200 rounded-lg px-10 py-15 space-y-5 flex flex-col justify-center items-center">
+            <img src="assets/blank_page.png" alt="">
+            <div class="text-center">
+                <h1 class="text-[#002C5C] text-2xl font-semibold">No jobs available</h1>
+            <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+            </div>
+        </div>
+    `
+    }
 
     for (let rejected of rejectedList) {
         // console.log(interview);
@@ -277,5 +354,21 @@ function renderRejected() {
         `;
 
         filterSection.appendChild(div);
+    }
+}
+
+
+// dan side er count er innerText. total e all card er length gelo, baki 2 ta list er length theke nibo. then {count of total job} format hobe.
+function rightSideJobCount() {
+    const totalJobs = allCardSection.children.length;
+
+    if (currentStatus == "all-filter-btn") {
+        jobCount.innerText = `${totalJobs} jobs`;
+    }
+    else if (currentStatus == "interview-filter-btn") {
+        jobCount.innerText = `${interviewList.length} of ${totalJobs} jobs`;
+    }
+    else if (currentStatus == "rejected-filter-btn") {
+        jobCount.innerText = `${rejectedList.length} of ${totalJobs} jobs`;
     }
 }
