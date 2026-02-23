@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+.geist-font {
+    font-family: "Geist", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+button {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+#all-filter-btn:hover,
+#interview-filter-btn:hover,
+#rejected-filter-btn:hover{
+    color: rgb(51, 51, 179);
+}
+
+.interview-btn:active {
+    background-color: #10B981;
+    color: white;
+}
+
+.rejected-btn:active {
+    background-color: #EF4444;
+    color: white;
+}
