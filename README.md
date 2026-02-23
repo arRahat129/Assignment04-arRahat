@@ -62,3 +62,4 @@ ANSWER:
     preventDefault() method Stops the browser’s default behavior. For any event, if it has a default action, then this method can cancel it. Like: clicking on submit button, prevents it from submitting the form. or click a link, prevent the link to follow the URL.
 
     stopPropagation() method is used to stop the event bubbling process. By which in between any middle parent element, this method stops the event from bubbling upward to parent's parent.
+
