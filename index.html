@@ -39,24 +39,27 @@
         </div>
     </header>
 
-    <hr class=" mx-auto my-8 border border-[#dedede]">
+    <hr class="w-11/12 sm:w-4/5 lg:w-3/5 mx-auto my-8 border border-[#dedede]">
 
-    <main id="" class=" mx-auto mt-15">
+    <main id="" class="w-11/12 sm:w-4/5 lg:w-3/5 mx-auto mt-15">
         <div id="" class="flex justify-between mb-6">
             <p class="font-semibold text-xl text-[#002C5C]">Available jobs</p>
             <p id="jobCount" class="font-medium text-[#64748B]">0 Jobs</p>
         </div>
 
-        <div id="" class="mb-4 flex   space-x-3 ">
-            <button  id="all-filter-btn"
+        <div id="" class="mb-4 flex flex-col sm:flex-row sm:space-x-2 space-y-3 sm:space-y-0">
+            <button onclick="toggleStyle('all-filter-btn')" id="all-filter-btn"
                 class="bg-sky-500 text-white px-8 py-3 font-semibold text-sm rounded-lg shadow-md">All</button>
-            <button  id="interview-filter-btn"
+            <button onclick="toggleStyle('interview-filter-btn')" id="interview-filter-btn"
                 class="bg-white text-[#64748B] px-8 py-3 font-semibold text-sm rounded-lg shadow-md">Interview</button>
-            <button  id="rejected-filter-btn"
+            <button onclick="toggleStyle('rejected-filter-btn')" id="rejected-filter-btn"
                 class="bg-white text-[#64748B] px-8 py-3 font-semibold text-sm rounded-lg shadow-md">Rejected</button>
         </div>
 
-        
+        <!-- Filtered card -->
+        <section id="filtered-section" class="hidden space-y-5 mb-15">
+
+        </section>
 
         <section id="all-cards" class="space-y-5 mb-15">
             <!-- card 1 -->
