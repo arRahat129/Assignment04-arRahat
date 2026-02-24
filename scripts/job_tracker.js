@@ -1,6 +1,6 @@
 let interviewList = [];
 let rejectedList = [];
-let currentStatus = 'All';
+let currentStatus = 'all-filter-btn';
 
 
 // COUNT
